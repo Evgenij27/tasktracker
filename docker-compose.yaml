@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+  mariadb:
+    image: mariadb:10.6.0-focal
+    container_name: mariadb
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: task_tracker
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    volumes:
+      - mariadb:/var/lib/postgresql/data
+
+
+volumes:
+  mariadb:
+

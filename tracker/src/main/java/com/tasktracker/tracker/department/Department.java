@@ -1,6 +1,9 @@
 package com.tasktracker.app.department;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.hateoas.server.core.Relation;
 
 import javax.persistence.*;
@@ -8,8 +11,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "department")
-@Data
 @Relation(collectionRelation = "departments")
+@Getter
+@Setter
+@ToString
 public class Department {
 
     @Id

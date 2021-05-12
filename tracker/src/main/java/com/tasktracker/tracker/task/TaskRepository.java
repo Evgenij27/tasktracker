@@ -1,10 +1,8 @@
 package com.tasktracker.app.task;
 
-import com.tasktracker.app.user.User;
-
 import java.util.List;
 
-public interface TaskService {
+public interface TaskRepository {
 
     Task create(Task task);
 
@@ -15,8 +13,4 @@ public interface TaskService {
     void update(Task task);
 
     void addComment(Long id, TaskComment comment);
-
-    void changeStatus(Long id, TaskStatus status);
-
-    void addAssignee(Long id, User user);
 }

@@ -15,14 +15,17 @@ public class TaskController {
 
     private final TaskService taskService;
 
+    private final TaskAssembler assembler;
+
     @Autowired
-    public TaskController(TaskService taskService) {
+    public TaskController(TaskService taskService, TaskAssembler assembler) {
         this.taskService = taskService;
+        this.assembler = assembler;
     }
 
     @GetMapping
     public ResponseEntity<?> findAll() {
-        return ResponseEntity.ok(taskService.findAll());
+        return ResponseEntity.ok(assembler.toCollectionModel(taskService.findAll()));
     }
 
     @GetMapping("/{id}")
@@ -31,7 +34,7 @@ public class TaskController {
         if (task == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(task);
+        return ResponseEntity.ok(assembler.toModel(task));
     }
 
     @PostMapping
@@ -67,8 +70,8 @@ public class TaskController {
         return ResponseEntity.status(HttpStatus.SEE_OTHER)
             .location(see)
             .build();
-
     }
+
     @PostMapping("/{id}/comments")
     public ResponseEntity<?> addComment(@PathVariable("id") Long id, @RequestBody TaskComment comment) {
         taskService.addComment(id, comment);
@@ -84,7 +87,10 @@ public class TaskController {
 
     @DeleteMapping("/{id}/comments/{cid}")
     public ResponseEntity<?> removeComment(@PathVariable("id") Long id, @PathVariable("cid") Long commentId) {
+        TaskComment comment = new TaskComment();
+        comment.setId(commentId);
+
+        taskService.deleteComment(id, comment);
         return ResponseEntity.ok().build();
     }
-
 }

@@ -36,29 +36,35 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void update(Task task) {
-        repository.update(task.getId(), task);
+    public void update(Long id, Task task) {
+        repository.update(task);
     }
 
     @Override
     public void addComment(Long id, TaskComment comment) {
-        repository.addComment(id, comment);
-        /*Task task = findById(id);
-        task.getComments().add(comment);
-        update(task);*/
+        Task task = findById(id);
+        task.addComment(comment);
+        update(task.getId(), task);
     }
 
     @Override
     public void changeStatus(Long id, TaskStatus status) {
         Task task = findById(id);
         task.setStatus(status);
-        update(task);
+        update(task.getId(), task);
     }
 
     @Override
     public void addAssignee(Long id, User user) {
         Task task = findById(id);
         task.setAssignee(user);
-        update(task);
+        update(task.getId(), task);
+    }
+
+    @Override
+    public void deleteComment(Long taskId, TaskComment comment) {
+        Task task = findById(taskId);
+        task.getComments().remove(comment);
+        update(task.getId(), task);
     }
 }

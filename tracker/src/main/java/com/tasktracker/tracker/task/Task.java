@@ -1,10 +1,16 @@
 package com.tasktracker.app.task;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tasktracker.app.user.User;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+import org.springframework.hateoas.server.core.Relation;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Clob;
 import java.time.Instant;
 import java.util.HashSet;
@@ -19,8 +25,14 @@ import java.util.Set;
             @NamedAttributeNode("topic"),
             @NamedAttributeNode("description"),
             @NamedAttributeNode("createdAt"),
-            @NamedAttributeNode("author"),
-            @NamedAttributeNode("assignee"),
+            @NamedAttributeNode(value = "author", subgraph = "user-department"),
+            @NamedAttributeNode(value = "assignee", subgraph = "user-department"),
+        },
+        subgraphs = {
+            @NamedSubgraph(
+                name = "user-department",
+                attributeNodes = {@NamedAttributeNode("department")}
+            )
         }
     ),
     @NamedEntityGraph(
@@ -30,16 +42,25 @@ import java.util.Set;
             @NamedAttributeNode("topic"),
             @NamedAttributeNode("description"),
             @NamedAttributeNode("createdAt"),
-            @NamedAttributeNode("author"),
-            @NamedAttributeNode("assignee"),
+            @NamedAttributeNode(value = "author", subgraph = "user-department"),
+            @NamedAttributeNode(value = "assignee", subgraph = "user-department"),
             @NamedAttributeNode("comments"),
-
+        },
+        subgraphs = {
+            @NamedSubgraph(
+                name = "user-department",
+                attributeNodes = {@NamedAttributeNode("department")}
+            )
         }
     )
 })
 @Entity
 @Table(name = "task")
-@Data
+@Getter
+@Setter
+@ToString
+@JsonInclude(Include.NON_EMPTY)
+@Relation(collectionRelation = "tasks")
 public class Task {
 
     @Id
@@ -61,18 +82,18 @@ public class Task {
     @org.hibernate.annotations.CreationTimestamp
     private Instant createdAt;
 
-    @OneToOne(fetch = FetchType.EAGER, optional = false)
+    @OneToOne(optional = false)
     @JoinColumn(name = "author_id")
     private User author;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne
     @JoinColumn(name = "assignee_id")
     private User assignee;
 
     @JsonManagedReference
     @OneToMany(
         mappedBy = "task",
-        fetch = FetchType.EAGER,
+        fetch = FetchType.LAZY,
         cascade = CascadeType.ALL
     )
     private Set<TaskComment> comments = new HashSet<>();
@@ -88,5 +109,12 @@ public class Task {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public void addComment(TaskComment comment) {
+        if (comment == null) throw new NullPointerException("Comment is null");
+
+        comment.setTask(this);
+        getComments().add(comment);
     }
 }

@@ -1,8 +1,9 @@
 package com.tasktracker.app.user;
 
 import com.tasktracker.app.department.Department;
-import com.tasktracker.app.task.TaskComment;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.hateoas.server.core.Relation;
 
 import javax.persistence.*;
@@ -10,8 +11,10 @@ import java.util.Objects;
 
 @Entity(name = "user")
 @Table(name = "users")
-@Data
 @Relation(collectionRelation = "users")
+@Getter
+@Setter
+@ToString
 public class User {
 
     @Id
@@ -22,7 +25,6 @@ public class User {
     private String name;
 
     @OneToOne(
-        fetch = FetchType.EAGER,
         optional = true,
         cascade = CascadeType.PERSIST)
     @JoinColumn(name = "department_id")

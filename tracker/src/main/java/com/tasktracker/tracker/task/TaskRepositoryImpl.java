@@ -32,9 +32,9 @@ public class TaskRepositoryImpl implements TaskRepository {
     public Task findById(Long id) {
         final Session session = sessionFactory.getCurrentSession();
         final RootGraph<?> taskDetailsGrapth = session.getEntityGraph("task-details");
-       /* Map<String, Object> properties = new HashMap<>();
-        properties.put("javax.persistence.fetchgraph", taskDetailsGrapth);*/
-        final Task task = session.find(Task.class, id);
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistence.fetchgraph", taskDetailsGrapth);
+        final Task task = session.find(Task.class, id, properties);
         if (task == null) {
             throw new TaskNotFoundException(id);
         }
@@ -52,20 +52,14 @@ public class TaskRepositoryImpl implements TaskRepository {
     }
 
     @Override
-    public void update(Long id, Task newTask) {
+    public void update(Task newTask) {
         final Session session = sessionFactory.getCurrentSession();
-        Task task = session.find(Task.class, id);
-        if (task == null) {
-            throw new TaskNotFoundException(id);
-        }
-        task.setDescription(newTask.getDescription());
-        task.setTopic(newTask.getTopic());
-        session.update(task);
+        session.update(newTask);
     }
 
     @Override
     public void addComment(Long id, TaskComment comment) {
-        final Session session = sessionFactory.getCurrentSession();
+        Session session = sessionFactory.getCurrentSession();
         Task task = session.find(Task.class, id);
         comment.setTask(task);
         task.getComments().add(comment);

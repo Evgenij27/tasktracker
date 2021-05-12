@@ -2,14 +2,18 @@ package com.tasktracker.app.task;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.tasktracker.app.user.User;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "task_comment")
-@Data
+@Getter
+@Setter
+@ToString
 public class TaskComment {
 
     @Id

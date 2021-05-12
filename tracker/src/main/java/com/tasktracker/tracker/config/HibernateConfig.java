@@ -1,4 +1,4 @@
-package com.tasktracker.app.config;
+package com.tasktracker.tracker.config;
 
 import org.hibernate.boot.model.naming.PhysicalNamingStrategy;
 import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;

@@ -1,4 +1,4 @@
-package com.tasktracker.app.user;
+package com.tasktracker.tracker.user;
 
 import java.util.List;
 

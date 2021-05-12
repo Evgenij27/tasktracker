@@ -1,10 +1,10 @@
-package com.tasktracker.tracker;
+package com.tasktrcker.ratings;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AppApplicationTests {
+class RatingsApplicationTests {
 
 	@Test
 	void contextLoads() {

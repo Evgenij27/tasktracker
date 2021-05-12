@@ -1,4 +1,4 @@
-package com.tasktracker.app.config;
+package com.tasktracker.tracker.config;
 
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import org.springframework.context.annotation.Bean;

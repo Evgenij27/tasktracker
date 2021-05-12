@@ -1,4 +1,4 @@
-package com.tasktracker.app.department;
+package com.tasktracker.tracker.department;
 
 import java.util.List;
 

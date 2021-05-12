@@ -1,4 +1,4 @@
-package com.tasktracker.app.task;
+package com.tasktracker.tracker.task;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

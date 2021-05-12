@@ -1,6 +1,6 @@
-package com.tasktracker.app.user;
+package com.tasktracker.tracker.user;
 
-import com.tasktracker.app.department.Department;
+import com.tasktracker.tracker.department.Department;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

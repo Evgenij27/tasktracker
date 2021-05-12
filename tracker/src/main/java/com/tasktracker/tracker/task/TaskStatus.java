@@ -1,4 +1,4 @@
-package com.tasktracker.app.task;
+package com.tasktracker.tracker.task;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

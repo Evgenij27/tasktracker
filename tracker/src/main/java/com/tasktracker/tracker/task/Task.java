@@ -1,16 +1,15 @@
-package com.tasktracker.app.task;
+package com.tasktracker.tracker.task;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.tasktracker.app.user.User;
+import com.tasktracker.tracker.user.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.hateoas.server.core.Relation;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Clob;
 import java.time.Instant;
 import java.util.HashSet;

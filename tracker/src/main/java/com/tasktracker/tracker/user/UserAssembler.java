@@ -1,4 +1,4 @@
-package com.tasktracker.app.user;
+package com.tasktracker.tracker.user;
 
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;

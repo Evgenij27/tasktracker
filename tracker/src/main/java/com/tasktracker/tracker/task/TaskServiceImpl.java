@@ -1,6 +1,6 @@
-package com.tasktracker.app.task;
+package com.tasktracker.tracker.task;
 
-import com.tasktracker.app.user.User;
+import com.tasktracker.tracker.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;

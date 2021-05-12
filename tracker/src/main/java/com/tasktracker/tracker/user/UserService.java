@@ -1,6 +1,6 @@
-package com.tasktracker.app.user;
+package com.tasktracker.tracker.user;
 
-import com.tasktracker.app.department.Department;
+import com.tasktracker.tracker.department.Department;
 
 import java.util.List;
 

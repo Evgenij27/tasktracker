@@ -1,6 +1,6 @@
-package com.tasktracker.app.task;
+package com.tasktracker.tracker.task;
 
-import com.tasktracker.app.user.User;
+import com.tasktracker.tracker.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

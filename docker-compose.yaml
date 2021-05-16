@@ -8,11 +8,9 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: task_tracker
-      MYSQL_USER: user
-      MYSQL_PASSWORD: pass
     volumes:
-      - mariadb:/var/lib/postgresql/data
+      - mariadb:/var/lib/mariadb/data
+      - ./schemas:/docker-entrypoint-initdb.d
 
 
 volumes:

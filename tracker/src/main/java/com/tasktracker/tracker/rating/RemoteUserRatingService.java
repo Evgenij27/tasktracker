@@ -1,5 +1,6 @@
 package com.tasktracker.tracker.rating;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @Service
+@Slf4j
 public class RemoteUserRatingService implements UserRatingService {
 
     private static final int DEFAULT_USER_RATING = 1;
@@ -29,6 +31,7 @@ public class RemoteUserRatingService implements UserRatingService {
         try {
             return restTemplate.getForObject(uri, UserRating.class);
         } catch (RestClientException ex) {
+            log.error(ex.getMessage(), ex);
             UserRating defaultRating = new UserRating();
             defaultRating.setUserId(userId);
             defaultRating.setRating(DEFAULT_USER_RATING);

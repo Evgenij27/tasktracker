@@ -2,6 +2,7 @@ package com.tasktracker.tracker.task;
 
 import com.tasktracker.tracker.rating.UserRating;
 import com.tasktracker.tracker.rating.UserRatingService;
+import com.tasktracker.tracker.taskcomment.TaskComment;
 import com.tasktracker.tracker.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
@@ -80,5 +82,11 @@ public class TaskServiceImpl implements TaskService {
         Task task = findById(taskId);
         task.getComments().remove(comment);
         update(task.getId(), task);
+    }
+
+    @Override
+    public Set<TaskComment> getTaskComments(Long taskId) {
+        return findById(taskId)
+            .getComments();
     }
 }

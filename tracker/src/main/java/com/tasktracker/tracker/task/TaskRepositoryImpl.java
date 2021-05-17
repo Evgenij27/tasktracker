@@ -1,5 +1,6 @@
 package com.tasktracker.tracker.task;
 
+import com.tasktracker.tracker.taskcomment.TaskComment;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.graph.RootGraph;

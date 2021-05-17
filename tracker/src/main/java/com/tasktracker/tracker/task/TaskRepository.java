@@ -1,5 +1,7 @@
 package com.tasktracker.tracker.task;
 
+import com.tasktracker.tracker.taskcomment.TaskComment;
+
 import java.util.List;
 
 public interface TaskRepository {

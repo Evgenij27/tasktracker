@@ -1,6 +1,7 @@
-package com.tasktracker.tracker.task;
+package com.tasktracker.tracker.taskcomment;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.tasktracker.tracker.task.Task;
 import com.tasktracker.tracker.user.User;
 import lombok.Getter;
 import lombok.Setter;

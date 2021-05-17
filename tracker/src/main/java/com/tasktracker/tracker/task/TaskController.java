@@ -71,26 +71,4 @@ public class TaskController {
             .location(see)
             .build();
     }
-
-    @PostMapping("/{id}/comments")
-    public ResponseEntity<?> addComment(@PathVariable("id") Long id, @RequestBody TaskComment comment) {
-        taskService.addComment(id, comment);
-
-        URI see = ServletUriComponentsBuilder.fromCurrentRequest()
-            .replacePath("/{id}")
-            .build(id);
-
-        return ResponseEntity.status(HttpStatus.SEE_OTHER)
-            .location(see)
-            .build();
-    }
-
-    @DeleteMapping("/{id}/comments/{cid}")
-    public ResponseEntity<?> removeComment(@PathVariable("id") Long id, @PathVariable("cid") Long commentId) {
-        TaskComment comment = new TaskComment();
-        comment.setId(commentId);
-
-        taskService.deleteComment(id, comment);
-        return ResponseEntity.ok().build();
-    }
 }

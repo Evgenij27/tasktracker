@@ -3,6 +3,7 @@ package com.tasktracker.tracker.task;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.tasktracker.tracker.taskcomment.TaskComment;
 import com.tasktracker.tracker.user.User;
 import lombok.Getter;
 import lombok.Setter;

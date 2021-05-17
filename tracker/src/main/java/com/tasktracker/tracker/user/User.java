@@ -30,6 +30,9 @@ public class User {
     @JoinColumn(name = "department_id")
     private Department department;
 
+    @Transient
+    private Integer rating;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,5 +1,7 @@
 package com.tasktracker.tracker.task;
 
+import com.tasktracker.tracker.rating.UserRating;
+import com.tasktracker.tracker.rating.UserRatingService;
 import com.tasktracker.tracker.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +17,13 @@ public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository repository;
 
+    private final UserRatingService ratingService;
+
     @Autowired
-    public TaskServiceImpl(TaskRepository repository) {
+    public TaskServiceImpl(TaskRepository repository,
+                           UserRatingService ratingService) {
         this.repository = repository;
+        this.ratingService = ratingService;
     }
 
     @Override
@@ -27,7 +33,15 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task findById(Long id) {
-        return repository.findById(id);
+        Task task = repository.findById(id);
+        User assignee = task.getAssignee();
+        UserRating assigneeRating = ratingService.getUserRatingByUserId(assignee.getId());
+        assignee.setRating(assigneeRating.getRating());
+
+        User author = task.getAuthor();
+        UserRating authorRating = ratingService.getUserRatingByUserId(author.getId());
+        author.setRating(authorRating.getRating());
+        return task;
     }
 
     @Override

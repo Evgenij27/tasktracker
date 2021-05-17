@@ -10,7 +10,6 @@ import javax.persistence.*;
 public class UserRating {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "user_id")
     private Long userId;
 

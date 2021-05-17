@@ -26,7 +26,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
-        sessionFactory.setPackagesToScan("com.tasktracker.app");
+        sessionFactory.setPackagesToScan("com.tasktracker.tracker");
         sessionFactory.setHibernateProperties(hibernateProperties());
 
         return sessionFactory;

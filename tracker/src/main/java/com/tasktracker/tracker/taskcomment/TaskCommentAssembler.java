@@ -1,7 +1,5 @@
 package com.tasktracker.tracker.taskcomment;
 
-import com.tasktracker.tracker.task.TaskController;
-import com.tasktracker.tracker.taskcomment.TaskComment;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
@@ -17,9 +15,9 @@ public class TaskCommentAssembler implements RepresentationModelAssembler<TaskCo
     @Override
     public EntityModel<TaskComment> toModel(TaskComment entity) {
         return EntityModel.of(entity,
-            WebMvcLinkBuilder.linkTo(methodOn(TaskController.class).addComment(entity.getTask().getId(), null))
+            WebMvcLinkBuilder.linkTo(methodOn(TaskCommentController.class).addComment(entity.getTask().getId(), null))
                 .withRel(IanaLinkRelations.COLLECTION),
-            linkTo(methodOn(TaskController.class).removeComment(entity.getTask().getId(), entity.getId()))
+            linkTo(methodOn(TaskCommentController.class).removeComment(entity.getTask().getId(), entity.getId()))
                 .withSelfRel()
             );
     }

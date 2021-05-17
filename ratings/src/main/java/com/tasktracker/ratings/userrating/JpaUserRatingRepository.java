@@ -23,4 +23,11 @@ public class JpaUserRatingRepository implements UserRatingRepository {
         return sessionFactory.getCurrentSession()
             .find(UserRating.class, userId);
     }
+
+    @Override
+    public UserRating create(UserRating rating) {
+        sessionFactory.getCurrentSession()
+            .save(rating);
+        return rating;
+    }
 }

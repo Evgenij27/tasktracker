@@ -17,4 +17,9 @@ public class JpaUserRatingService implements UserRatingService {
     public UserRating findById(Long userId) {
         return repository.findByUserId(userId);
     }
+
+    @Override
+    public UserRating create(UserRating rating) {
+        return repository.create(rating);
+    }
 }

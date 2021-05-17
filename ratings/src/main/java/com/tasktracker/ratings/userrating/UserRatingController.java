@@ -2,10 +2,7 @@ package com.tasktracker.ratings.userrating;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/ratings")
@@ -28,5 +25,13 @@ public class UserRatingController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(assembler.toModel(userRating));
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<?> createRating(@PathVariable("id") Long id, @RequestBody UserRating rating) {
+        rating.setUserId(id);
+        service.create(rating);
+        return ResponseEntity.ok()
+            .build();
     }
 }

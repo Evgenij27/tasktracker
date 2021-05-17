@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
@@ -48,7 +49,21 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<Task> findAll() {
-        return repository.findAll();
+        return repository.findAll()
+            .stream()
+            .peek(task -> {
+                final User author = task.getAuthor();
+                author.setRating(getRating(author));
+
+                final User assignee = task.getAssignee();
+                assignee.setRating(getRating(assignee));
+            })
+            .collect(Collectors.toList());
+    }
+
+    private Integer getRating(User user) {
+        return ratingService.getUserRatingByUserId(user.getId())
+            .getRating();
     }
 
     @Override

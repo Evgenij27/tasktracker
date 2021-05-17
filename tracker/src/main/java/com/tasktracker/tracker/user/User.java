@@ -1,5 +1,6 @@
 package com.tasktracker.tracker.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.tasktracker.tracker.department.Department;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import org.springframework.hateoas.server.core.Relation;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity(name = "user")
+@Entity
 @Table(name = "users")
 @Relation(collectionRelation = "users")
 @Getter
@@ -30,6 +31,7 @@ public class User {
     @JoinColumn(name = "department_id")
     private Department department;
 
+    @JsonProperty("rating")
     @Transient
     private Integer rating;
 

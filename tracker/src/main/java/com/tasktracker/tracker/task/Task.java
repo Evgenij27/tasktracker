@@ -70,9 +70,8 @@ public class Task {
     @Column(name = "topic")
     private String topic;
 
-    @Lob
     @Column(name = "description")
-    private Clob description;
+    private String description;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)

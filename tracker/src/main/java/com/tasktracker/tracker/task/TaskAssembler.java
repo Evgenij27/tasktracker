@@ -15,7 +15,8 @@ public class TaskAssembler implements RepresentationModelAssembler<Task, EntityM
     @Override
     public EntityModel<Task> toModel(Task task) {
         return EntityModel.of(task,
-            linkTo(methodOn(TaskController.class).findAll()).withRel(IanaLinkRelations.COLLECTION),
+            linkTo(methodOn(TaskController.class).findAll(null, null))
+                .withRel(IanaLinkRelations.COLLECTION),
             linkTo(methodOn(TaskController.class).findById(task.getId())).withRel(IanaLinkRelations.SELF),
             linkTo(methodOn(TaskController.class).changeStatus(task.getId(), null)).withRel("status"),
             linkTo(methodOn(TaskCommentController.class).addComment(task.getId(), null)).withRel("comments"),

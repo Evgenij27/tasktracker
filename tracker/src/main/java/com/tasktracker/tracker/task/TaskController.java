@@ -24,8 +24,9 @@ public class TaskController {
     }
 
     @GetMapping
-    public ResponseEntity<?> findAll() {
-        return ResponseEntity.ok(assembler.toCollectionModel(taskService.findAll()));
+    public ResponseEntity<?> findAll(@RequestParam(value = "department", required = false) Long departmentId,
+                                     @RequestParam(value = "order", required = false, defaultValue = "asc") String order) {
+        return ResponseEntity.ok(assembler.toCollectionModel(taskService.findAll(departmentId, order)));
     }
 
     @GetMapping("/{id}")

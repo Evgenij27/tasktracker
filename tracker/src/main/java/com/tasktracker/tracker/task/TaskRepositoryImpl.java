@@ -7,6 +7,9 @@ import org.hibernate.graph.RootGraph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,11 +46,26 @@ public class TaskRepositoryImpl implements TaskRepository {
     }
 
     @Override
-    public List<Task> findAll() {
+    public List<Task> findAll(Long departmentId, String order) {
         final Session session = sessionFactory.getCurrentSession();
         final RootGraph<?> entityGraph = session.getEntityGraph("just-task");
-        return session
-            .createQuery("select t from Task t", Task.class)
+
+        final CriteriaBuilder cb = session.getCriteriaBuilder();
+        final CriteriaQuery<Task> cq = cb.createQuery(Task.class);
+        final Root<Task> root = cq.from(Task.class);
+
+        CriteriaQuery<Task> select = cq.select(root);
+        if (departmentId != null) {
+            select = select.where(cb.equal(root.get("author").get("department").get("id"), departmentId));
+        }
+
+        if (order.equalsIgnoreCase("asc")) {
+            select = select.orderBy(cb.asc(root.get("createdAt")));
+        } else {
+            select = select.orderBy(cb.desc(root.get("createdAt")));
+        }
+
+        return session.createQuery(select)
             .setHint("javax.persistence.fetchgraph", entityGraph)
             .getResultList();
     }

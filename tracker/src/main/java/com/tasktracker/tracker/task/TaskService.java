@@ -12,7 +12,7 @@ public interface TaskService {
 
     Task findById(Long taskId);
 
-    List<Task> findAll();
+    List<Task> findAll(Long departmentId, String order);
 
     void update(Long taskId, Task task);
 

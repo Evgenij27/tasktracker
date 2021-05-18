@@ -10,7 +10,7 @@ public interface TaskRepository {
 
     Task findById(Long id);
 
-    List<Task> findAll();
+    List<Task> findAll(Long departmentId, String order);
 
     void update(Task task);
 

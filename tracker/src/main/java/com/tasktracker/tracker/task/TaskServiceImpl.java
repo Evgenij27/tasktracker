@@ -48,8 +48,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> findAll() {
-        return repository.findAll()
+    public List<Task> findAll(Long departmentId, String order) {
+        return repository.findAll(departmentId, order)
             .stream()
             .peek(task -> {
                 final User author = task.getAuthor();
